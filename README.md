@@ -1,12 +1,8 @@
-Sure, here's the updated README with a line of instruction for installing JSmol via command:
-
----
-
 # DataChemPy
 
 DataChemPy is a comprehensive big data database toolset designed to efficiently manage and share chemical and materials data. This toolset enables users to set up a database, populate it with user-provided data, and perform searches, visualizations, and data sharing via the web.
 
-![DataChemPy Logo](./datachempy_logo.jpg)
+![DataChemPy Logo](https://github.com/aogunjobi/datachempy/blob/main/datachempy/static/datachempy_logo.jpg?raw=true)
 
 ## Table of Contents
 
