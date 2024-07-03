@@ -1,7 +1,3 @@
-Certainly! Here's the updated README:
-
----
-
 # DataChemPy
 
 DataChemPy is a comprehensive big data database toolset designed to efficiently manage and share chemical and materials data. This toolset enables users to set up a database, populate it with user-provided data, and perform searches, visualizations, and data sharing via the web.
