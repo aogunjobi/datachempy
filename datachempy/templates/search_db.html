@@ -1,0 +1,274 @@
+<html lang="en">
+
+<div class='head'>
+<head>
+    <!-- website name -->
+    <title>Datachempy-Search</title>
+    <!-- website heading -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/styles/styles.css">
+    <script> $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+      })
+      $(function (){
+        $('[data-togle="popover"]').popover()
+      })
+      </script>
+    
+</head>
+
+</div>
+<body> 
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #005bbb;height:80px;font-family:Exo;">
+
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <a href='/'>
+                        <img src='../static/datachempy_logo.png' alt='logo' style='width:130px;background-color:#ffffff;float: right;
+                        height: 80px;'>
+                      </a>
+                  <ul class="navbar-nav" style="margin-top: 15px;">
+                    <li class="nav-item ">
+                      <a class="nav-link" style="color:#ffffff;font-family: Exo;" >Connect </a>
+                    </li>
+                    <li class="nav-item">
+                            <a class="nav-link" href='/setup'  style="color:#ffffff;font-family: Exo;" target='_blank'>Create</a>
+                          </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href='/temp_insert' style="color:#ffffff;font-family: Exo;" target='_blank'>Insert</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href='/search' style="color:#ffffff;font-family: Exo;" target='_blank'>Search <span class="sr-only">(current)</span> </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href='/delete' style="color:#ffffff;font-family: Exo;" target='_blank'>Delete</a>
+                    </li>
+                    <!-- <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:#ffffff;" >
+                              All Databases
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                              {% for adbs in all_dbs %}
+                              <a class="dropdown-item" href="#">{{adbs[0]}}</a>
+                              {% endfor %}
+                            </div>
+                          </li> -->
+                  </ul>
+                </div>
+              </nav>
+    
+    <div class="search" style="font-family:Exo;">
+        <h3>Search</h3>
+        <form name='search' action="" method="post">
+            <div class="search_table">
+            <table class="table table-bordered" border="0" style="align-content: center;font-family:Exo;">
+                <col width="240">
+                <col width="240">
+                <col width="240">
+                <tr>
+                        <td><input id='smiles_search' type ="checkbox" name="smiles_search" value="yes" onclick="document.getElementById('smi').disabled=!this.checked" >&nbsp;&nbsp;Search for SMILES
+                        </td>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <td colspan=2><input id='smi' type="text" name="smiles" class="searchTerm" placeholder="SMILES" value="{{smi_val}}" style="width:100%" size='55' disabled ></td>
+                </tr>
+                <tr>
+                        <td><input id='MW' type ="checkbox" name="MW" value="MW" onclick="document.getElementById('from_MW').disabled=!this.checked;document.getElementById('to_MW').disabled=!this.checked" >&nbsp;&nbsp;Molecular Weight in g/mol
+                        </td>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <td><input id='from_MW' type="text" name="MW_from_val" class="searchTerm_left" placeholder="Min" value="{{MW_from}}"  style="width:100%" size='25' disabled></td>
+                        <td><input id='to_MW' type="text" name="MW_to_val" class="searchTerm_right" placeholder="Max" value="{{MW_to}}" style="width:100%" size='25' disabled></td>
+                </tr>
+                {% for row in properties %}
+                <tr>
+                        <td><input id='1' type ="checkbox" name="{{row[1]}}_id" value="{{row[0]}}" onclick="document.getElementById('from_{{row[1]}}').disabled=!this.checked;document.getElementById('to_{{row[1]}}').disabled=!this.checked" >&nbsp;&nbsp;{{row[1]}}
+                        </td>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <td><input id='from_{{row[1]}}' type="text" name="{{row[1]}}_from_val" class="searchTerm_left" placeholder="Min" style="width:100%" size='25' value="{{row[3]}}" disabled></td>
+                        <td><input id='to_{{row[1]}}' type="text" name="{{row[1]}}_to_val" class="searchTerm_right" placeholder="Max" style="width:100%" size='25' value="{{row[4]}}" disabled></td>
+                    </tr>
+                {% endfor %}
+                <!-- <tr>
+                    
+                    <td > 
+                    <input id=2 type='checkbox' name='method' value='method' onclick="document.getElementById('method').disabled=!this.checked;document.getElementById('func').disabled=!this.checked;document.getElementById('basis').disabled=!this.checked;document.getElementById('ff').disabled=!this.checked">&nbsp;&nbsp; Search for properties by Method
+                    </td>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <td colspan=2>
+                <select id='method' name='method_name' disabled>
+                    {% for method in methods %}
+                    <option value="{{method}}" size='100' style="font-family:Exo;">{{method}}</option>
+                    {% endfor %}
+                </select>
+                    
+                    
+                    <select id='func' name='functional_name' disabled>
+                        {% for func in functionals %}
+                        <option value="{{func[0]}}" size=100>{{func[1]}}</option>
+                        {% endfor %}
+                    </select>
+                    
+                    
+                        <select id='basis' name='basis_set' disabled>
+                            {% for bas in basis %}
+                            <option value="{{bas[0]}}" size=100>{{bas[1]}}</option>
+                            {% endfor %}
+                        </select>
+                        <select id='ff' name='forcefield' disabled>
+                            {% for ff in forcefields %}
+                            <option value="{{ff[0]}}" size=100>{{ff[1]}}</option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                </tr> -->
+
+            </table>
+        
+            </br>
+            <!-- <input id='csv' type="checkbox" name='csv' value='csv' onclick="document.getElementById('path').disabled=!this.checked">&nbsp;&nbsp;save as CSV&nbsp;&nbsp;<input id='path' type='text' name='path' class='searchTerm' placeholder='path+name.csv' style="resize:none; color: black" disabled> -->
+
+            <button type="submit" name="search-query" class="btn btn-primary btn" style="background-color:#005bbb;color:#ffffff" >Search</button>
+        </form>
+    <hr>
+
+</div>
+    </div>
+
+<div class='result' style="font-family:Exo;">
+
+{% if data %}
+<div class="row">
+    {% if not to_order %}
+        <div class='col-md-5'>
+        <form name='orderby' action="" method="post">
+                <select id='property_ordering' name='property_orderby' disabled>
+                    {% for cols in columns[2:] %}
+                    <option value="{{cols[0]}}-{{cols[1]}}" size=100>{{cols[0]}}-{{cols[1]}}</option>
+                    {% endfor %}
+                </select>
+                <select id='order' name='select_order' disabled>
+                    <option value='ascending' size=100>ascending</option>
+                    <option value='descending' size=100>descending</option>
+                </select>
+                <button type="submit" name='orderby_property' class='btn btn-primary btn-md' style="background-color:#005bbb;color:#ffffff" disabled>re-order</button>
+            </form>
+        </div>
+        {% else %}
+        <div class='col-md-5'>
+                <form name='orderby' action="" method="post">
+                        <select id='property_ordering' name='property_orderby'>
+                            {% for cols in columns[2:] %}
+                            <option value="{{cols[0]}}-{{cols[1]}}" size=100>{{cols[0]}}-{{cols[1]}}</option>
+                            {% endfor %}
+                        </select>
+                        <select id='order' name='select_order'>
+                            <option value='ascending' size=100>ascending</option>
+                            <option value='descending' size=100>descending</option>
+                        </select>
+                        <button type="submit" name='orderby_property' class='btn btn-primary btn-md' style="background-color:#005bbb;color:#ffffff" >re-order</button>
+                    </form>
+                </div>
+    {% endif %}
+        <div class='col-md-4 col-md-offset-3'>
+        <form name='csv' action="" method="post">   
+        <!--    <button type="submit" name="download" class="btn btn-primary btn-md" style="background-color:#005bbb;color:#ffffff;margin-left: 60px;" >Download</button>-->
+        <button type="button" name="download" class="btn btn-primary btn" style="background-color:#005bbb;color:#ffffff;font-family:Exo; margin-left:60px;" data-toggle="modal" data-target="#centralModalSm" >Download</button>
+            <!-- Central Modal Small -->
+            <div class="modal fade" id="centralModalSm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-sm" role="document">
+                <!--Content-->
+                <div class="modal-content">
+                <!--Header-->
+                <div class="modal-header">
+                    <h4 class="modal-title w-100" id="myModalLabel">Which format do you want these results in?</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <!--Body-->
+                <div class="modal-body">
+                    CSV or JSON
+                </div>
+                <!--Footer-->
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-secondary btn-md" name="download_csv" style="background-color:#005bbb;color:#ffffff;font-family:Exo;">CSV</button>
+                    <button type="submit" class="btn btn-primary btn-md" name="download_json" style="background-color:#005bbb;color:#ffffff;font-family:Exo;">JSON</button>
+                </div>
+                </div>
+                <!--/.Content-->
+            </div>
+            </div>
+            <!-- Central Modal Small --> 
+            {% if noprev %}
+            <button type="submit" name="prev-50" class="btn btn-primary btn-md" style="background-color:#005bbb;color:#ffffff;" disabled>prev page</button> 
+            {% else %}
+            <button type="submit" name="prev-50" class="btn btn-primary btn-md" style="background-color:#005bbb;color:#ffffff;" >prev page</button>
+            {% endif %}
+            {% if nonext %}
+            <button type="submit" name="next-50" class="btn btn-primary btn-md" style="background-color:#005bbb;color:#ffffff;margin-left:15px " disabled>next page</button> 
+            {% else %}
+            <button type="submit" name="next-50" class="btn btn-primary btn-md" style="background-color:#005bbb;color:#ffffff;margin-left:15px" >next page</button>
+            {% endif %}
+
+        </form>
+        </div>
+        </div>
+        {% if msg %}
+                <div class="alert alert-success" role="alert">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+                      {{msg}}
+                    </div>
+                {% endif %}
+<table class="table table-striped table-bordered table-hover">
+    Showing {{ini}} - {{fin}} results out of {{n_res}}.
+    {% for cols in columns %}
+        {% if cols[0] != 'SMILES' and cols[0] != 'ID' %}
+        <th>{{cols[0]}}<span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="right" title="Meta data: {{cols[1]}}"></span>
+            <span class="bi bi-graph-up" data-toggle="tooltip" data-placement="right" title="{{desc[columns.index(cols)]}}"><svg class="bi bi-graph-up" width="1em" height="1em" fill="currentColor" xmlns="http://www.w3.org/2000/svg" >
+                <path d="M0 0h1v16H0V0zm1 15h15v1H1v-1z"/>
+                <path fill-rule="evenodd" d="M14.39 4.312L10.041 9.75 7 6.707l-3.646 3.647-.708-.708L7 5.293 9.959 8.25l3.65-4.563.781.624z"/>
+                <path fill-rule="evenodd" d="M10 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V4h-3.5a.5.5 0 0 1-.5-.5z"/>
+              </svg> </span></td>
+        </th>
+        {% else %}
+        <th>{{cols[0]}}</th>
+        {% endif %}
+    {% endfor %}
+    <!--<tr>
+        {% for d in desc %}
+        {% if d!='' %}
+        <td>Metrics:
+            <span class="bi bi-graph-up" data-toggle="tooltip" data-placement="right" title="{{d}}"><svg class="bi bi-graph-up" width="1em" height="1em" fill="currentColor" xmlns="http://www.w3.org/2000/svg" >
+            <path d="M0 0h1v16H0V0zm1 15h15v1H1v-1z"/>
+            <path fill-rule="evenodd" d="M14.39 4.312L10.041 9.75 7 6.707l-3.646 3.647-.708-.708L7 5.293 9.959 8.25l3.65-4.563.781.624z"/>
+            <path fill-rule="evenodd" d="M10 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V4h-3.5a.5.5 0 0 1-.5-.5z"/>
+          </svg> </span></td>
+        <!--<td>Metrics:<span class="bi bi-graph-up" data-toggle="tooltip" data-placement="right" title="{{d}}"></span></td>-->
+        <!--<td>{{d}}</td>-->
+        <!--{% else %}-->
+        <!--<td></td>        -->
+        <!--{% endif %}-->
+        <!--{% endfor %}-->
+    <!--</tr>-->
+    {% for row in data %}
+
+    <tr style="height: 60px; align-content: center" onclick="window.open('molecule-{{title}}-{{row[0]}}','_blank')">
+            
+        {%for r in row%}
+            <td>{{r}}</td>
+        {% endfor %}
+    
+        </tr>
+    
+    {% endfor %}
+    {% else %}
+    {% if n_res %}
+    <div class="alert alert-danger" role="alert">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+            {{n_res}}
+    </div>
+           {% endif %} 
+    {% endif %}
+</table>
+</div>
+
+</body>
+</html>

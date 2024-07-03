@@ -1,0 +1,115 @@
+<html lang="en">
+
+<head>
+    <!-- website name -->
+    <title>Datachempy-Connect</title>
+    <!-- website heading -->
+    <!-- <h2><b><font size='8'>{{title}}</font> </b></h2> -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/styles/styles.css">
+    <script>
+        function get_value(){
+            var val=document.getElementById('dbname').value;
+            return val;
+        }
+    </script>
+</head>
+<body>
+        <div class="mynav">
+        <nav class="navbar navbar-expand-lg navbar-light" style="height:80px;
+        background-color: #005bbb">
+          <!--<a class='navbar-brand' href='/'>
+            <img src='../static/datachempy_logo.png' alt='logo' style='width:60px;background-color:#ffffff'>
+          </a>-->
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <a href='/'>
+                      <img src='../static/datachempy_logo.png' alt='logo' style='width:130px;background-color:#ffffff;float: right;
+                      height: 80px;'>
+                    </a>
+                  <ul class="navbar-nav" style="margin-top: 15px;">
+                    <li class="nav-item active">
+                      <a class="nav-link" style="color:#ffffff;font-family:Exo;" >Connect <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" style="color:#ffffff;font-family:Exo;" >Create</a>
+                      </li>
+                    <li class="nav-item">
+                      <a class="nav-link" style="color:#ffffff;font-family:Exo;" >Insert</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" style="color:#ffffff;font-family:Exo;" >Search</a>
+                    </li>
+                    <li class="nav-item">
+                            <a class="nav-link" style="color:#ffffff;font-family:Exo;" >Result</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" style="color:#ffffff;font-family:Exo;" >Delete</a>
+                    </li>
+                    <!--<li class="nav-item">
+                      <a class='navbar-brand' href='/'>
+                        <img src='../static/datachempy_logo.png' alt='logo' style='width:60px;background-color:#ffffff'>
+                      </a>
+                    </li>-->
+                    <!-- <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:#ffffff;font-family:Exo;" >
+                          All Databases
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                          {% for adbs in all_dbs %}
+                          <a class="dropdown-item" style="font-family:Exo;" href="#">{{adbs[0]}}</a>
+                          {% endfor %}
+                        </div>
+                      </li> -->
+                  </ul>
+                </div>
+              </nav>
+            </div>
+
+              <div class="setup">
+                    <meta charset="UTF-8">
+                    <h3 style="font-family:Exo;">Connect</h3>
+                    <!-- <h5> All of this data will be  stored locally. If you change your host url, MySQL username or password find your credentials.dat file and change it accordingly. </h5> -->
+                    <form name='details' method="post">
+                        <!-- <input id='not-first-time' type ="checkbox" name="first-time" value="yes" onclick="document.getElementById('host').disabled=!this.checked;document.getElementById('username').disabled=!this.checked;document.getElementById('password').disabled=!this.checked" >&nbsp;&nbsp;Check this box if you do not a credentials.dat file in your current working directory.  -->
+                            <div class="form-group">
+                              <label for="host" style="font-family:Exo;">Host</label>
+                              <input type="text" name='host' class="form-control" id="host" value='{{host}}' placeholder="127.0.0.1"  style="font-family:Exo;">
+                            </div>
+                            <div class="form-group">
+                              <label for="Username" style="font-family:Exo;">Username</label>
+                              <input type="text" name='username' class="form-control" id="username" value='{{user}}' placeholder="root"  style="font-family:Exo;">
+                              <small id="usernamehelp" class="form-text text-muted" style="font-family:Exo;">Enter your username for MySQL.</small>
+                            </div>
+                            <div class="form-group">
+                                    <label for="password" style="font-family:Exo;">Password</label>
+                                    <input type="password" name='password' class="form-control" id="password" value='{{password}}' placeholder="Password"  style="font-family:Exo;">
+                                    <small id="passwordhelp" class="form-text text-muted" style="font-family:Exo;">Enter your MySQL password.</small>
+                            </div>
+                            <button type="submit" name='setup' class="btn btn-primary" style="background-color:#005bbb;font-family:Exo;">Connect</button>
+                            
+                          </form>
+                          {% if err_msg %}
+                          <div class="alert alert-danger" role="alert"  style="font-family:Exo;">
+                                <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+                                {{err_msg}}
+                              </div>
+                          {% endif %}
+                          {% if success_msg %}
+                          <div class="alert alert-success" role="alert"  style="font-family:Exo;">
+                                <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+                                {{success_msg}}
+                              </div>
+                          <hr>
+                
+                            <a href='/setup' target='_blank'><button type="setup" name='setup' class="btn btn-primary" style="background-color:#005bbb;color:#ffffff;font-family:Exo;">Create</button></a>
+                            <a href='/temp_insert' target='_blank'><button type="insert" name='insert' class='btn btn-primary' style="background-color:#005bbb;color:#ffffff;font-family:Exo;" >Insert</button></a>
+                            <a href='/search' target='_blank'><button type="search" name='search' class="btn btn-primary" style="background-color:#005bbb;color:#ffffff;font-family:Exo;">Search</button></a>
+                            <a href='/delete' target='_blank'><button type="delete" name='search' class="btn btn-primary" style="background-color:#005bbb;color:#ffffff;font-family:Exo;">Delete</button></a>
+                            <!-- </form> -->
+                          {% endif %}
+                          
+</body>
+</html>
