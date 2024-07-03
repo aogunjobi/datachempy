@@ -1,6 +1,12 @@
+Sure, here's the updated README with a line of instruction for installing JSmol via command:
+
+---
+
 # DataChemPy
 
 DataChemPy is a comprehensive big data database toolset designed to efficiently manage and share chemical and materials data. This toolset enables users to set up a database, populate it with user-provided data, and perform searches, visualizations, and data sharing via the web.
+
+![DataChemPy Logo](./datachempy_logo.jpg)
 
 ## Table of Contents
 
@@ -46,6 +52,12 @@ DataChemPy is a comprehensive big data database toolset designed to efficiently 
 
     Place the downloaded JSmol files in the `static/jsmol` directory of the project.
 
+    Alternatively, you can use the following command to download and extract JSmol directly to the `static/jsmol` directory:
+
+    ```bash
+    mkdir -p static/jsmol && curl -L http://chemapps.stolaf.edu/jmol/jsmol.zip -o jsmol.zip && unzip jsmol.zip -d static/jsmol && rm jsmol.zip
+    ```
+
 6. Run the application:
 
     ```bash
@@ -68,3 +80,5 @@ Once the application is running, you can access it by navigating to `http://127.
 - **Search Functionality**: Perform complex searches to find specific data points.
 - **Visualization**: Visualize molecular structures using JSmol.
 - **Data Sharing**: Share data and visualizations with other users through the web interface.
+
+---
