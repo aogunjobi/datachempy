@@ -44,7 +44,7 @@ DataChemPy is a comprehensive big data database toolset designed to efficiently 
 
 5. Install JSmol:
 
-    Download JSmol from [JSmol download page](http://wiki.jmol.org/index.php/Jmol_Download).
+    Download JSmol from [JSmol download page]([http://wiki.jmol.org/index.php/Jmol_Download](http://wiki.jmol.org/index.php/JSmol)).
 
     Place the downloaded JSmol files in the `static/jsmol` directory of the project.
 
