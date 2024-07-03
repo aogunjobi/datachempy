@@ -44,14 +44,14 @@ DataChemPy is a comprehensive big data database toolset designed to efficiently 
 
 5. Install JSmol:
 
-    Download JSmol from [JSmol download page]((http://wiki.jmol.org/index.php/JSmol)).
+    Download JSmol from [JSmol GitHub page](https://github.com/cheminfo/jsmol/tree/master).
 
     Place the downloaded JSmol files in the `static/jsmol` directory of the project.
 
     Alternatively, you can use the following command to download and extract JSmol directly to the `static/jsmol` directory:
 
     ```bash
-    mkdir -p static/jsmol && curl -L http://chemapps.stolaf.edu/jmol/jsmol.zip -o jsmol.zip && unzip jsmol.zip -d static/jsmol && rm jsmol.zip
+    mkdir -p static/jsmol && curl -L https://github.com/cheminfo/jsmol/archive/refs/heads/master.zip -o jsmol.zip && unzip jsmol.zip -d static/jsmol && rm jsmol.zip
     ```
 
 6. Run the application:
