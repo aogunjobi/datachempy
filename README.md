@@ -57,7 +57,7 @@ DataChemPy is a comprehensive big data database toolset designed to efficiently 
 6. Run the application:
 
     ```bash
-    python app.py
+    python datachempy.py
     ```
 
 ## Usage
